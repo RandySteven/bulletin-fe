@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { InputLabel } from "../Elements/Input";
 import { Button } from "../Elements/Button/Button";
 
 export const LoginForm = () => {
