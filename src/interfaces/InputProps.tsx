@@ -5,6 +5,7 @@ export declare interface InputProps {
     inputType: string
     variable: string
     classname: string
+    name: string
     value: string | undefined
     onChange: React.ChangeEventHandler<HTMLInputElement>
 }

@@ -2,21 +2,16 @@ import React, { useState } from "react";
 import { InputLabel } from "../Elements/Input";
 import { Button } from "../Elements/Button/Button";
 
-interface LoginFormData {
-    email: string | undefined,
-    password: string | undefined
-}
-
 export const LoginForm = () => {
-    const [formData, setFormData] = useState<LoginFormData>({
+    const [formData, setFormData] = useState({
         email: "",
         password: ""
     })
 
     const handleInputChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
-        setFormData(prevState => ({
-            ...prevState,
+        setFormData(prevFormData => ({
+            ...prevFormData,
             [name]: value
         }));
     }
@@ -27,48 +22,76 @@ export const LoginForm = () => {
 
     const onSubmit = (e : React.FormEvent) => {
         e.preventDefault()
-        let form = new FormData(e.target as HTMLFormElement)
-        let email = form.get('email')?.toString()
-        let password = form.get('password')?.toString()
-        setFormData({
-            email: email,
-            password: password
-        })
-        console.log(formData)
 
+        const request = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+                'accept': '*/*'
+            },
+            body: JSON.stringify(
+                {
+                    email: formData.email,
+                    password: formData.password
+                }
+            )
+        }
+
+        fetch('http://localhost:8080/auth/login', request)
+            .then(response => 
+                console.log(response.json())
+            )
+            .catch(error => {
+                console.error('There was an error!', error);
+            })
     }
 
-    const buttonHandler = (e : React.FormEvent) => {
-        e.preventDefault()
-        console.log('lah lu ngapain?')
-    }
 
     return (
         <div className="flex h-screen justify-center items-center px-2 py-2 my-2">
             <form className=" grid grid-cols-1 w-1/4" onSubmit={onSubmit}>
                 <label className="text-2xl font-bold text-center mb-5 text-blue-500">Login</label>
-                <InputLabel inputProps={{
+                {/* <InputLabel inputProps={{
                     inputType: "email",
                     variable: "email",
+                    name: "email",
                     classname: inputClassName,
                     onChange: handleInputChange,
                     value: formData.email
                 }} labelProps={{
                     classname: labelClassName,
-                    variable: "password"
+                    variable: "email"
                 }}>Email</InputLabel>
+
                 <InputLabel inputProps={{
                     inputType: "password",
                     variable: "password",
+                    name: "password",
                     classname: inputClassName,
                     onChange: handleInputChange,
                     value: formData.password
                 }} labelProps={{
                     classname: labelClassName,
-                    variable: "email"
-                }}>Password</InputLabel>
-                <Button classname="text-white font-bold bg-blue-600 mt-5 rounded-xl mx-1 hover:bg-blue-700 py-2" typeButton="submit" onSubmit={buttonHandler}>Login</Button>
+                    variable: "password"
+                }}>Password</InputLabel> */}
+
+                <label htmlFor="email" className={labelClassName}>Email:</label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className={inputClassName}/>
+
+                <label htmlFor="password" className={labelClassName}>Password:</label>
+                <input type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} className={inputClassName} />
+
+                <Button classname="text-white font-bold bg-blue-600 mt-5 rounded-xl mx-1 hover:bg-blue-700 py-2" typeButton="submit">Login</Button>
             </form>
         </div>       
+        // <form onSubmit={onSubmit}>
+        //     <label htmlFor="email">Email:</label>
+        //     <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange}/>
+
+        //     <label htmlFor="password">Message:</label>
+        //     <input id="password" name="password" value={formData.password} onChange={handleInputChange}/>
+
+        //     <button type="submit">Submit</button>   
+        // </form>
     );
 };

@@ -12,7 +12,13 @@ export const InputLabel : React.FC<InputLabelProps> = (props: InputLabelProps) =
         <Fragment>
             <div className="my-2">
                 <Label variable={labelProps.variable} classname={labelProps.classname}>{children}</Label>
-                <Input variable={inputProps.variable} onChange={inputProps.onChange} inputType={inputProps.inputType} classname={inputProps.classname} value={inputProps.value}/>
+                <Input 
+                    name={inputProps.name} 
+                    variable={inputProps.variable} 
+                    onChange={inputProps.onChange} 
+                    inputType={inputProps.inputType} 
+                    classname={inputProps.classname} 
+                    value={inputProps.value}/>
             </div>
         </Fragment>
     </>

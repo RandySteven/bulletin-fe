@@ -3,11 +3,11 @@ import { ButtonProps } from "../../../interfaces/ButtonProps"
 
 export const Button = (props : ButtonProps) => {
     const {
-        children, classname, typeButton, onSubmit
+        children, classname, typeButton
     } = props
     return (
         <Fragment>
-            <button className={classname} type={typeButton} onSubmit={onSubmit}>
+            <button className={classname} type={typeButton}>
                 {children}
             </button>
         </Fragment>
