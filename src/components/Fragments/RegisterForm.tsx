@@ -27,12 +27,27 @@ export const RegisterForm = () => {
         }));
     }
 
+    const passwordValidation = () => {
+        if (formData.confirmPassword != formData.password) {
+            return false
+        }
+        return true
+    }
+
+    const onSubmit = (e : React.FormEvent) => {
+        e.preventDefault()
+        let isPasswordSame = passwordValidation
+        if(!isPasswordSame) {
+            console.log('iyaahhaah gak sama')
+        } 
+    }
+
     let inputClassName = "w-full border border-black pb-2 px-2 pt-1 rounded-full"
     let labelClassName = "w-full px-2 text-blue-600"
 
     return <>
         <div className="flex h-screen justify-center items-center px-2 py-2 my-2">
-            <form className=" grid grid-cols-1 w-1/4">
+            <form className=" grid grid-cols-1 w-1/4" onSubmit={onSubmit}>
                 <label className="text-2xl font-bold text-center mb-5 text-blue-500">Register</label>
                 <FirstNameInput inputClassName={inputClassName} labelClassName={labelClassName} handleInputChange={handleInputChange} formData={formData}/>
                 <LastNameInput inputClassName={inputClassName} labelClassName={labelClassName} handleInputChange={handleInputChange} formData={formData}/>
