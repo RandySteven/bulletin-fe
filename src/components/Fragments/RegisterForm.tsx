@@ -5,6 +5,8 @@
 // import { LabelProps } from "../../interfaces/LabelProps"
 
 export const RegisterForm = () => {
+    return <>
+    </>
     // let inputClassName = "w-full border border-black pb-2 px-2 pt-1 rounded-full"
     // let labelClassName = "w-full px-2 text-blue-600"
     // const [emailInputProps, setEmailInputProps] = useState<InputProps>({
